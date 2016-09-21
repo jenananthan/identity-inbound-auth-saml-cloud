@@ -570,8 +570,7 @@ public class SAMLSSOUtil {
                     .asList(properties.get(SAMLSSOConstants.SAMLFormFields.ACS_URLS).getValue().split
                             (SAMLSSOConstants.SAMLFormFields.ACS_SEPERATE_CHAR)).contains(requestedACSUrl)) {
                 String msg = "ALERT: Invalid Assertion Consumer URL value '" + requestedACSUrl + "' in the " +
-                        "AuthnRequest message from  the issuer '" + properties.get(SAMLSSOConstants.SAMLFormFields
-                        .ISSUER).getValue() + "'. Possibly " + "an attempt for a spoofing attack";
+                        "AuthnRequest message from  the issuer '" + issuerName + "'. Possibly " + "an attempt for a spoofing attack";
                 log.error(msg);
                 return false;
             } else {
@@ -1105,7 +1104,7 @@ public class SAMLSSOUtil {
                         for (Property prop : config.getProperties()) {
                             properties.put(prop.getName(), prop);
                         }
-                        ssoIdpConfigs.setIssuer(properties.get(SAMLSSOConstants.SAMLFormFields.ISSUER).getValue());
+                        ssoIdpConfigs.setIssuer(context.getIssuer());
                         if (properties.get(SAMLSSOConstants.SAMLFormFields.ACS_URLS) != null && StringUtils
                                 .isNotBlank(properties.get(SAMLSSOConstants.SAMLFormFields.ACS_URLS).getValue())) {
                             ssoIdpConfigs.setAssertionConsumerUrls(properties.get(SAMLSSOConstants.SAMLFormFields
